@@ -2253,7 +2253,7 @@ SpellSpecificType SpellInfo::LoadSpellSpecific() const
             {
                 // family flags 10 (Lightning), 42 (Earth), 37 (Water), proc shield from T2 8 pieces bonus
                 if (SpellFamilyFlags[1] & 0x420
-                        || SpellFamilyFlags[0] & 0x00000400
+                        || (SpellFamilyFlags[0] & 0x00000400 && HasAttribute(SPELL_ATTR1_NO_THREAT))
                         || Id == 23552)
                     return SPELL_SPECIFIC_ELEMENTAL_SHIELD;
 
@@ -2725,6 +2725,7 @@ bool SpellInfo::_IsPositiveEffect(uint8 effIndex, bool deep) const
                             return true;
                         return false;
                     case SPELL_AURA_MOD_ROOT:
+                    case SPELL_AURA_MOD_FEAR:
                     case SPELL_AURA_MOD_SILENCE:
                     case SPELL_AURA_GHOST:
                     case SPELL_AURA_PERIODIC_LEECH:
